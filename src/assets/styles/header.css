@@ -1,0 +1,17 @@
+.header {
+    width: 100%;
+    background-color: #ffcc00;
+    text-align: center;
+    padding: 20px 0;
+    border: none;
+}
+
+.header h1 {
+    margin: 0;
+    color: black;
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body { 
+    margin: 0;
+}

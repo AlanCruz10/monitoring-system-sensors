@@ -1,6 +1,11 @@
+import "../assets/styles/home.css"
 import { useEffect, useState } from "react";
 import SensorData from "../components/sensorData";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/header"
+import Modal from "../containers/modal"
+import Card from "../components/card";
+import Button from "../components/button";
 
 function Home (){
 
@@ -35,11 +40,26 @@ function Home (){
     
     return (
         <div>
-            {sensors.map((item, key)=> (
-                <SensorData key={key} data={item}/>
-            ))
-            }
-            <button onClick={seeHistory}> Ver historial </button>
+            <Header />
+            <div className="home-body">
+                <Modal>
+                    <h1>CUARTO DE MÁQUINAS</h1>
+                    <div className="sensor-area">
+                        <Card state={true} sensor_name={"Ds18b20"} sensor_value={sensors[2].number} sensor_description={"Medidor de temperatura en liquidos"}/>
+                        <Card 
+                            state={false} 
+                            sensor_name="DHTC11"
+                            sensor1_value={sensors[1].number}
+                            sensor1_description="Sensor de temperatura"
+                            sensor2_value={sensors[0].number}
+                            sensor2_description="Sensor de humedad en el ambiente"
+                        />
+                    </div>
+                    <div className="button-position">
+                        <Button action={seeHistory} text="Ver historial"/>
+                    </div>
+                </Modal>
+            </div>
         </div>
     );
 }

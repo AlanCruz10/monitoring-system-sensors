@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import Header from "../components/header";
+import Modal from "../containers/modal";
 
 function History () {
 
@@ -10,8 +12,12 @@ function History () {
 
     return (
         <div>
-            <p>SE VERA EL HISTORIAL</p>
-            <button onClick={seeData}> Ver datos </button>
+            <Header />
+            <div className="home-body">
+                <Modal>
+                    <button onClick={seeData}> Ver datos </button>            
+                </Modal>
+            </div>
         </div>
     );
 }

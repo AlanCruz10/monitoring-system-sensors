@@ -1,0 +1,17 @@
+button {
+    background-color: white;
+    color: black;
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 15px;
+    margin: 10px;
+    box-shadow: 4px 5px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #000000;
+    color: white;
+}
