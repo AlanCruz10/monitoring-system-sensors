@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Header from "../components/header";
+import Header from "../layouts/header";
 import Modal from "../containers/modal";
 
 function History () {
