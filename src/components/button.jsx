@@ -1,10 +1,11 @@
 import "../assets/styles/button.css"
+import { useEffect, useState } from "react";
 
-function Button (props) {
+function Button(props) {
     return (
-        <>
-        <button onClick={props.action}> {props.text} </button>
-        </>
+        <button className={props.isActive ? "active" : ""} onClick={props.action}>
+            {props.text}
+        </button>
     );
 }
 

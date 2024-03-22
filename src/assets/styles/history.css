@@ -6,3 +6,9 @@
     width: auto;
     height: 80vh;
 }
+
+.nav-bar-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

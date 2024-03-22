@@ -1,7 +1,7 @@
 .sensor-ds18b20 {
     background-color: white;
     width: 30%;
-    height: 60vh;
+    height: 65vh;
     margin-left: 6%;
     border-radius: 15px;
     box-shadow: 4px 5px 6px rgba(0, 0, 0, 0.2);
@@ -10,7 +10,7 @@
 .sensor-dhtc11 {
     background-color: white;
     width: 50%;
-    height: 60vh;
+    height: 65vh;
     margin-right: 6%;
     border-radius: 15px;
     box-shadow: 4px 5px 6px rgba(0, 0, 0, 0.2);
@@ -23,10 +23,22 @@ h2 {
     font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+.image-value {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-value img {
+    width: 90px;
+}
+
 .sensor-value {
     text-align: center;
     color: black;
-    font-size: 70px;
+    font-size: 60px;
+    margin: 40px 0px 40px;
+    font-size: 50px;
     font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
@@ -35,13 +47,14 @@ h2 {
     padding: 0 10px;
     color: black;
     font-size: 20px;
+    margin-top:50px;
     font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .sensors-area {
     display: flex;
     justify-content: space-between;
-    height: 41vh;
+    height: 45vh;
     padding-bottom: 10px;
 }
 

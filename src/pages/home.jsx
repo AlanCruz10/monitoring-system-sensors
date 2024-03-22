@@ -1,21 +1,20 @@
 import "../assets/styles/home.css"
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { getData } from "../firebase/conexionFirebase";
 import { ref, onValue } from "firebase/database";
 import Header from "../layouts/header"
+import NavBar from "../components/navBar";
 import Modal from "../containers/modal"
 import Card from "../components/card";
-import Button from "../components/button";
 import "../assets/styles/home.css"
 
 
 function Home (){
 
-    const [data, setData] = useState({});
+    const [temperatureDht11, setTemperatureDht11] = useState(0);
+    const [humidityDht11, setHumidityDht11Dht11] = useState(0);
+    const [temperaureDs18b20, setTemperaureDs18b20] = useState(0);
     const [time, setTime] = useState(0);
-    const navigate = useNavigate()
-
 
     useEffect(() => {
         const db = getData()
@@ -23,46 +22,13 @@ function Home (){
 
         onValue(count, (snapshot) => {
             const dataFirebase = snapshot.val();
-            setData(dataFirebase);
+            
+            setTemperatureDht11(dataFirebase.dht11.temperature)
+            setHumidityDht11Dht11(dataFirebase.dht11.humidity)
+            setTemperaureDs18b20(dataFirebase.ds18b20.temperature)
         });
 
-        const intervalId = setInterval(() => {
-            setTime(preTime => preTime + 1);
-        }, 1000);
-
-        return () => clearInterval(intervalId);
-
     }, []);
-    
-    /*useEffect(() => {
-        if (time === 5) {
-            const myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            const raw = JSON.stringify({
-                "temperature": 1,
-                "temperatureEnvironment": 2,
-                "humidityEnvironment": 3,
-                "day": 19,
-                "mount": 3,
-                "year": 2024,
-                "hour": 7,
-                "minute": 55,
-                "second": 41
-            });
-            const requestOptions = {
-                method: "POST",
-                headers: myHeaders,
-                body: raw,
-                redirect: "follow"
-            };
-            fetch("http://localhost:8080/data/save/v1", requestOptions)
-            .then((response) => {
-                setTime(0) 
-                response.text()})
-            .then((result) => console.log(result))
-            .catch((error) => console.error(error));
-        }
-    }, [time, data]);*/
 
     const seeHistory = () => {
         navigate('/history')
@@ -71,37 +37,37 @@ function Home (){
     const sensors = [
         {
             name: "Sensor Humedad Ambiente",
-            number: data.temperatura
+            number: humidityDht11
         },
         {
             name: "Sensor Temperatura Ambiente",
-            number: 4
+            number: temperatureDht11
         },
         {
             name:"Sensor Temperatura del Liquido",
-            number: 6
+            number: temperaureDs18b20
         }
     ]
     
     return (
         <div>
             <Header />
+            <div className="nav-bar-div">
+                <NavBar />
+            </div>
             <div className="home-body">
                 <Modal>
                     <h1>CUARTO DE MÁQUINAS</h1>
                     <div className="sensor-area">
-                        <Card state={true} sensor_name={"Ds18b20"} sensor_value={sensors[2].number} sensor_description={"Medidor de temperatura en liquidos"}/>
+                        <Card state={true} sensor_name={"DS18B20"} sensor_value={sensors[2].number + "°C"} sensor_description={"Medidor de temperatura en liquidos"}/>
                         <Card 
                             state={false} 
                             sensor_name="DHTC11"
-                            sensor1_value={sensors[1].number}
+                            sensor1_value={sensors[1].number + "°C"}
                             sensor1_description="Sensor de temperatura"
-                            sensor2_value={sensors[0].number}
+                            sensor2_value={sensors[0].number + "%HR"}
                             sensor2_description="Sensor de humedad en el ambiente"
                         />
-                    </div>
-                    <div className="button-position">
-                        <Button action={seeHistory} text="Ver historial"/>
                     </div>
                 </Modal>
             </div>
