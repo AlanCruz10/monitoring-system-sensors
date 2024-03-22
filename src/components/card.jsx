@@ -15,6 +15,9 @@ function Card (props) {
                 <>
                     <h2>{props.sensor_name}</h2>
                     <p className="sensor-value">{props.sensor_value}</p>
+                    <div className="image-value">
+                        <img src="thermometer.png"/>
+                    </div>
                     <p className="sensor-description">{props.sensor_description}</p>
                 </>
             ) : (
@@ -23,10 +26,16 @@ function Card (props) {
                     <div className="sensors-area">
                         <div className="humidity">
                             <p className="sensor-value">{props.sensor1_value}</p>
+                            <div className="image-value">
+                                <img src="thermometer.png"/>
+                            </div>
                             <p className="sensor-description">{props.sensor1_description}</p>
                         </div>
                         <div className="temperature">
                             <p className="sensor-value">{props.sensor2_value}</p>
+                            <div className="image-value">
+                                <img src="humidity.png"/>
+                            </div>
                             <p className="sensor-description">{props.sensor2_description}</p>
                         </div>
                     </div>
