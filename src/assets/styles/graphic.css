@@ -1,0 +1,8 @@
+.container-graphic {
+    border-radius: 10px;
+    overflow: hidden;
+    width: fit-content;
+    margin: auto;
+    height: fit-content;
+    box-shadow: 4px 5px 6px rgba(0, 0, 0, 0.2);
+}
