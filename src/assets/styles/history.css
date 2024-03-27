@@ -4,11 +4,58 @@
     align-items: center;
     padding: 50px 0;
     width: auto;
-    height: 80vh;
+    height: auto;
 }
 
-.nav-bar-div {
+.historial-graphics {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 20px;
+}
+
+.choose-sensor {
+    display: flex;
+    padding: 20px 0 0 5%;
+} 
+
+.choose-sensor p {
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.panel {
+    background-color: white;
+    width: 11%;
+    height: 10%;
+    border-radius: 15px;
+    box-shadow: 4px 5px 6px rgba(0, 0, 0, 0.2);
+    font-size: 15px;
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.panel p {
+    padding-left: 20%;
+    transition: transform 0.3s ease;
+}
+
+.panel :hover {
+    transform: scale(1.1);
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.panel-cancel-button {
+    padding-left: 5px;
+}
+
+.selected-sensor {
+    background-color: white;
+    padding-inline: 10px;
+    border-radius: 15px;
+    box-shadow: 4px 5px 6px rgba(0, 0, 0, 0.2);
+}
+
+.data-graphics {
+    padding: 20px 50px 20px;
 }

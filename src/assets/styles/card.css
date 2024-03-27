@@ -1,7 +1,7 @@
 .sensor-ds18b20 {
     background-color: white;
     width: 30%;
-    height: 65vh;
+    height: auto;
     margin-left: 6%;
     border-radius: 15px;
     box-shadow: 4px 5px 6px rgba(0, 0, 0, 0.2);
@@ -10,8 +10,17 @@
 .sensor-dhtc11 {
     background-color: white;
     width: 50%;
-    height: 65vh;
+    height: auto;
     margin-right: 6%;
+    padding-bottom: 20px;
+    border-radius: 15px;
+    box-shadow: 4px 5px 6px rgba(0, 0, 0, 0.2);
+}
+
+.no-sensor {
+    background-color: white;
+    width: 80%;
+    height: auto;
     border-radius: 15px;
     box-shadow: 4px 5px 6px rgba(0, 0, 0, 0.2);
 }
@@ -54,7 +63,7 @@ h2 {
 .sensors-area {
     display: flex;
     justify-content: space-between;
-    height: 45vh;
+    height: auto;
     padding-bottom: 10px;
 }
 

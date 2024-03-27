@@ -14,8 +14,7 @@ function Home (){
     const [temperatureDht11, setTemperatureDht11] = useState(0);
     const [humidityDht11, setHumidityDht11Dht11] = useState(0);
     const [temperaureDs18b20, setTemperaureDs18b20] = useState(0);
-    const [time, setTime] = useState(0);
-
+    
     useEffect(() => {
         const db = getData()
         const count = ref(db, '/sensor')
@@ -59,8 +58,14 @@ function Home (){
                 <Modal>
                     <h1>CUARTO DE MÁQUINAS</h1>
                     <div className="sensor-area">
-                        <Card state={true} sensor_name={"DS18B20"} sensor_value={sensors[2].number + "°C"} sensor_description={"Medidor de temperatura en liquidos"}/>
                         <Card 
+                            enable={true} 
+                            state={true} 
+                            sensor_name={"DS18B20"} 
+                            sensor_value={sensors[2].number + "°C"} 
+                            sensor_description={"Medidor de temperatura en liquidos"}/>
+                        <Card 
+                            enable={true}
                             state={false} 
                             sensor_name="DHTC11"
                             sensor1_value={sensors[1].number + "°C"}
