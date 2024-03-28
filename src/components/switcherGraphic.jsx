@@ -2,19 +2,16 @@ import { useContext, useEffect, useState } from 'react';
 import '../assets/styles/switcher.css'
 import Context from '../context/context';
 
-function SwitcherGraphic() {
-    const {setDataDate} = useContext(Context)
+function SwitcherGraphic(props) {
+    const {dataDate, setDataDate} = useContext(Context)
     const [activate, setActivate] = useState('')
 
-    const intervals = ['1D', '1W', '1M', '1Y'];
+    const intervals = ['1D', '1M', '1Y'];
 
 
-    const rangeSelect = (item) => {
+    const rangeSelect = (item, data, date) => {
         setActivate(item)
-        const data = {
-            item: item,
-        }
-        setDataDate(data)
+        setDataDate({...dataDate, item: item, dataSensor: '1D', filter: date})
     }
 
 
@@ -24,7 +21,7 @@ function SwitcherGraphic() {
                 <button 
                     key={item} 
                     className={`switcher-item ${activate === item ? 'switcher-active-item' : ''}`} 
-                    onClick={() => rangeSelect(item)}>
+                    onClick={() => rangeSelect(item, props.data, props.date)}>
                         {item}
                 </button>
             ))}

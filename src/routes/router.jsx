@@ -6,7 +6,11 @@ import { useState } from "react";
 import Context from "../context/context";
 
 function Router() {
-  const [dataDate, setDataDate] = useState(null);
+  const [dataDate, setDataDate] = useState({
+    dataSensor:null,
+    item: '',
+    date: ''
+  });
 
   return ( 
     <BrowserRouter>

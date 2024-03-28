@@ -19,4 +19,15 @@ button {
 .choose-sensor-button {
     background-color: rgb(81, 81, 81);
     color: white;
+    width: 180px;
+}
+
+.choose-date-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: auto;
+    height: 30px;
+    padding: 10px;
 }

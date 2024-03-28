@@ -14,14 +14,14 @@ function Home (){
     const [temperatureDht11, setTemperatureDht11] = useState(0);
     const [humidityDht11, setHumidityDht11Dht11] = useState(0);
     const [temperaureDs18b20, setTemperaureDs18b20] = useState(0);
-    
+
     useEffect(() => {
         const db = getData()
         const count = ref(db, '/sensor')
 
         onValue(count, (snapshot) => {
             const dataFirebase = snapshot.val();
-            
+                
             setTemperatureDht11(dataFirebase.dht11.temperature)
             setHumidityDht11Dht11(dataFirebase.dht11.humidity)
             setTemperaureDs18b20(dataFirebase.ds18b20.temperature)

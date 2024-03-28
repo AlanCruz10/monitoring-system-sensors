@@ -2,8 +2,9 @@ import "../assets/styles/button.css"
 
 function Button(props) {
     return (
-        <button className={props.isActive ? "active" : props.className} onClick={props.action}>
+        <button type={props.type} className={props.isActive ? "active" : props.className} onClick={props.action}>
             {props.text}
+            {props.icon}
         </button>
     );
 }

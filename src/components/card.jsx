@@ -46,7 +46,7 @@ function Card(props) {
                 {props.children}
             </div>
         ) : (
-            <div className="no-sensor">
+            <div className={props.className}>
                 {props.children}
             </div>
         )

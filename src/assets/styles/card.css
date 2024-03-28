@@ -18,11 +18,15 @@
 }
 
 .no-sensor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: white;
     width: 80%;
     height: auto;
     border-radius: 15px;
     box-shadow: 4px 5px 6px rgba(0, 0, 0, 0.2);
+    padding: 10px;
 }
 
 h2 {
