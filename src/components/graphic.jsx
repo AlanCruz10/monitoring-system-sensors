@@ -60,7 +60,7 @@ function Graphic() {
                 },
             },
             rightPriceScale: {
-                borderVisible: false,
+                borderVisible: true,
             },
             timeScale: {
                 borderVisible: false,

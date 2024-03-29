@@ -15,6 +15,7 @@ function History () {
     const [selectDate, setSelectDate] =  useState(false)
     const [selectedOption, setSelectedOption] = useState(null);
     const [date, setDate] = useState("");
+    const [dateString, setDateString] = useState([])
     const [data, setData] = useState("");
 
     const options = ['DS18B20', 'DHTC11'];
@@ -25,13 +26,14 @@ function History () {
 
     const selectOption = (option) => {
         setSelectedOption(option);
-        //fetch
+        //fetch 
         setData("data")
-        togglePanel();
+        togglePanel()
     };
 
     const getDate = (date) => {
         setDate(date)
+        setDateString(date.split("-"))
     }
 
     return (
@@ -42,13 +44,11 @@ function History () {
             </div>
             <div className="home-body">
                 <Modal>
-                    <h1>HISTORY</h1>
+                    <h1>HISTORIAL</h1>
                     <div className="choose-sensor">
                         <div className='choose-sensor-btn-div'>
                             <Button className={"choose-sensor-button"} text={selectedOption ? selectedOption : "SELECT A SENSOR"} action={togglePanel}/>
-                        </div>
-                        {showPanel && (
-                            <>
+                            {showPanel && (
                                 <div className="panel">
                                     {options.map((option, index) => (
                                             <p key={index} onClick={() => selectOption(option)}>
@@ -56,8 +56,8 @@ function History () {
                                             </p>
                                         ))}
                                 </div>
-                            </>
-                        )}
+                            )}
+                        </div>
                         {(selectedOption && data != "") && 
                             <>
                                 <div className='date-selector-input'>
@@ -75,21 +75,61 @@ function History () {
                                     />
                                 </div>
                                 {date != "" && 
-                                    <div><SwitcherGraphic 
+                                    <div>
+                                        <SwitcherGraphic 
                                         data={data}
-                                        date={date}
-                                    /></div>
+                                        date={date}/>
+                                    </div>
                                 }
                             </>
                         }
                     </div>
                     <div className="history-graphics">
                         {(dataDate.dataSensor != null && dataDate.item != '' && dataDate.filter != '') && (
-                            <Card className={"no-sensor"}>
-                                <div className="data-graphics">
-                                    <Graphic />
-                                </div>
-                            </Card>
+                            <>
+                                {}
+                                <Card className={"no-sensor"}>
+                                    {(selectedOption == 'DS18B20') ? (
+                                        <>
+                                            <h2>Sensor DS18B20: Filtrado por {dataDate.item}</h2>
+                                            {(dataDate.item == "1D") && ( 
+                                                <p>DIA: {dateString[2]}</p>
+                                            )}
+                                            {(dataDate.item == "1M") && ( 
+                                                <p>MES: {dateString[1]}</p>
+                                            )}
+                                            {(dataDate.item == "1Y") && ( 
+                                                <p>AÑO: {dateString[0]}</p>
+                                            )}
+                                            <h3>Datos de la temperatura</h3>
+                                            <div className="data-graphics">
+                                                <Graphic />
+                                            </div>
+                                        </>
+                                    ):(
+                                        <>
+                                            <h2>Sensor DHT11: Filtrado por {dataDate.item}</h2>
+                                            {(dataDate.item == "1D") && ( 
+                                                <p>DIA: {dateString[2]}</p>
+                                            )}
+                                            {(dataDate.item == "1M") && ( 
+                                                <p>MES: {dateString[1]}</p>
+                                            )}
+                                            {(dataDate.item == "1Y") && ( 
+                                                <p>AÑO: {dateString[0]}</p>
+                                            )}
+                                            <h3>Datos de la temperatura</h3>
+                                            <div className="data-graphics">
+                                                <Graphic />
+                                            </div>
+                                            <h3>Datos de la humedad</h3>
+                                            <div className="data-graphics">
+                                                <Graphic />
+                                            </div>
+                                        </>
+                                    )}
+                                </Card>
+                            </>
                         )}
                     </div>
                 </Modal>
