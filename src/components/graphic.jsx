@@ -36,7 +36,7 @@ const seriesesData = new Map([
   ['1Y', yearData],
 ]);
 
-function Graphic() {
+function Graphic({data}) {
     const graphicElementRef = useRef(null);
     const {dataDate} = useContext(Context);
 
@@ -63,6 +63,8 @@ function Graphic() {
                 borderVisible: true,
             },
             timeScale: {
+                timeVisible: true,
+                secondsVisible: false,
                 borderVisible: false,
             },
             crosshair: {
@@ -73,18 +75,39 @@ function Graphic() {
         })
         graphic.timeScale().fitContent()
         const addData = (item) => {
-            const data = graphic.addAreaSeries(colorRandom());
-            data.setData(seriesesData.get(item));
+            const data = graphic.addAreaSeries(colorRandom())
+            const datas = item.map((e, i)=>({time:new Date(`${e.date} ${e.time}`), value: e.value}))
+            console.log(datas[1].time)
+            data.setData(datas.sort((a, b) => a.time - b.time))
+            /*data
+            console.log(item)
+            const data_format = []
+            for (let i = 0; i < item.length; i++) {
+                const element = item[i];
+                data_format.push({time:`${element.date} ${element.time}`, value:Math.random()})
+            }*/
+            /*
+            for (let i = 0; i < 2; i++) {
+                const element = item[i];
+                data_format.push({time:element.time, value:i})
+            }
+            for (let i = 0; i < 1; i++) {
+                const element = item[i];
+                data_format.push({time:element, value:78})
+            }*/
+            /*console.log(dayData)
+            console.log(data_format)
+            data.setData(data_format);*/
         };
       
-        addData(dataDate.dataSensor);
+        addData(data)
       
         return () => {
             if (graphic) {
               graphic.remove();
             }
         };
-    }, [dataDate.dataSensor]);
+    }, [data]);
 
     const colors = {
         yellow: {

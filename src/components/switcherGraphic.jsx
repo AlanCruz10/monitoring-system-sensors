@@ -11,7 +11,7 @@ function SwitcherGraphic(props) {
 
     const rangeSelect = (item, data, date) => {
         setActivate(item)
-        setDataDate({...dataDate, item: item, dataSensor: '1D', filter: date})
+        setDataDate({...dataDate, item: item, dataSensor: data, filter: date})
     }
 
 

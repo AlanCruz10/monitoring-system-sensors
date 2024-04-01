@@ -8,6 +8,7 @@ import Button from "../components/button";
 import "../assets/styles/history.css"
 import SwitcherGraphic from '../components/switcherGraphic';
 import Context from '../context/context';
+import Chart from '../components/graphicData';
 
 function History () {
     const [showPanel, setShowPanel] = useState(false);
@@ -16,9 +17,9 @@ function History () {
     const [selectedOption, setSelectedOption] = useState(null);
     const [date, setDate] = useState("");
     const [dateString, setDateString] = useState([])
-    const [data, setData] = useState("");
+    const [data, setData] = useState(null);
 
-    const options = ['DS18B20', 'DHTC11'];
+    const options = ['DS18B20', 'DHT11'];
 
     const togglePanel = () => {
         setShowPanel(!showPanel);
@@ -26,14 +27,28 @@ function History () {
 
     const selectOption = (option) => {
         setSelectedOption(option);
-        //fetch 
-        setData("data")
         togglePanel()
     };
 
     const getDate = (date) => {
-        setDate(date)
-        setDateString(date.split("-"))
+        console.log(date)
+        console.log(selectedOption)
+        fetch(`http://localhost:8080/data/get/history/v1?sensor=${selectedOption}&date=${date}`,{
+            method: "GET",
+            mode: "cors",
+            redirect: 'follow',
+            headers:{
+                "Content-Type": "application/json",
+            }
+          })
+        .then((response) => response.json())
+        .then((result) => {
+            console.log(result.data)
+            setData(result.data)})
+        .catch((error) => console.error(error));
+        const dateSplit = date.split("-")
+        const dateFormat = new Date(dateSplit[0], dateSplit[1]-1, dateSplit[2])
+        setDate(dateFormat)
     }
 
     return (
@@ -58,7 +73,7 @@ function History () {
                                 </div>
                             )}
                         </div>
-                        {(selectedOption && data != "") && 
+                        {(selectedOption) && 
                             <>
                                 <div className='date-selector-input'>
                                     <Button 
@@ -74,7 +89,7 @@ function History () {
                                         onChange={(e) => getDate(e.target.value)}
                                     />
                                 </div>
-                                {date != "" && 
+                                {(date != null && data != null) && 
                                     <div>
                                         <SwitcherGraphic 
                                         data={data}
@@ -87,47 +102,25 @@ function History () {
                     <div className="history-graphics">
                         {(dataDate.dataSensor != null && dataDate.item != '' && dataDate.filter != '') && (
                             <>
-                                {}
                                 <Card className={"no-sensor"}>
-                                    {(selectedOption == 'DS18B20') ? (
+                                    {(selectedOption != null) &&
                                         <>
-                                            <h2>Sensor DS18B20: Filtrado por {dataDate.item}</h2>
+                                            <h2>Sensor {selectedOption}: Filtrado por {dataDate.item}</h2>
                                             {(dataDate.item == "1D") && ( 
-                                                <p>DIA: {dateString[2]}</p>
+                                                <p>DIA: {date.getDate()}</p>
                                             )}
                                             {(dataDate.item == "1M") && ( 
-                                                <p>MES: {dateString[1]}</p>
+                                                <p>MES: {date.getMonth() + 1}</p>
                                             )}
                                             {(dataDate.item == "1Y") && ( 
-                                                <p>AÑO: {dateString[0]}</p>
+                                                <p>AÑO: {date.getFullYear()}</p>
                                             )}
-                                            <h3>Datos de la temperatura</h3>
+                                            <h3>Datos de la temp</h3>
                                             <div className="data-graphics">
-                                                <Graphic />
+                                                <Chart data={dataDate.dataSensor}/>
                                             </div>
                                         </>
-                                    ):(
-                                        <>
-                                            <h2>Sensor DHT11: Filtrado por {dataDate.item}</h2>
-                                            {(dataDate.item == "1D") && ( 
-                                                <p>DIA: {dateString[2]}</p>
-                                            )}
-                                            {(dataDate.item == "1M") && ( 
-                                                <p>MES: {dateString[1]}</p>
-                                            )}
-                                            {(dataDate.item == "1Y") && ( 
-                                                <p>AÑO: {dateString[0]}</p>
-                                            )}
-                                            <h3>Datos de la temperatura</h3>
-                                            <div className="data-graphics">
-                                                <Graphic />
-                                            </div>
-                                            <h3>Datos de la humedad</h3>
-                                            <div className="data-graphics">
-                                                <Graphic />
-                                            </div>
-                                        </>
-                                    )}
+                                    }
                                 </Card>
                             </>
                         )}
