@@ -13,15 +13,11 @@ ChartJS.register(
   Legend
 );
 
-
-
-
-
 function Chart({data}) {
   console.log(data)
   const date = [];
   for (let i = 0; i < 10; i++) {
-      const dates = Math.random() * 10 + "";
+      const dates = (Math.random() * 10).toFixed(3)
       date.push(dates);
   }
   const asd = [];
@@ -35,7 +31,7 @@ function Chart({data}) {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top',
+        position: 'bottom',
       }
     },
   };
@@ -44,10 +40,10 @@ function Chart({data}) {
       labels: date,
       datasets:[
           {
-              label: 'medicion',
+              label: 'Medición',
               data: asd,
-              borderColor: 'rgba(227, 242, 19, 0.5)',
-              backgroundColor: 'rgba(227, 242, 19, 1)',
+              borderColor: 'rgba(227, 242, 19)',
+              backgroundColor: 'rgba(204, 204, 0, 1)',
               tension: 0.2,
               fill:true,
           }

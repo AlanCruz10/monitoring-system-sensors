@@ -36,7 +36,7 @@
 .no-sensor {
     display: grid;
     background-color: white;
-    width: auto;
+    width: 90%;
     height: auto;
     border-radius: 15px;
     text-align: center;

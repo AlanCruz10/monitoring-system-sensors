@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import Header from "../layouts/header";
 import NavBar from "../components/navBar";
 import Modal from "../containers/modal";
-import Graphic from '../components/graphic';
 import Card from "../components/card";
 import Button from "../components/button";
 import "../assets/styles/history.css"
@@ -31,21 +30,21 @@ function History () {
     };
 
     const getDate = (date) => {
-        console.log(date)
-        console.log(selectedOption)
-        fetch(`http://localhost:8080/data/get/history/v1?sensor=${selectedOption}&date=${date}`,{
-            method: "GET",
-            mode: "cors",
-            redirect: 'follow',
-            headers:{
-                "Content-Type": "application/json",
-            }
-          })
-        .then((response) => response.json())
-        .then((result) => {
-            console.log(result.data)
-            setData(result.data)})
-        .catch((error) => console.error(error));
+        // console.log(date)
+        // console.log(selectedOption)
+        // fetch(`http://localhost:8080/data/get/history/v1?sensor=${selectedOption}&date=${date}`,{
+        //     method: "GET",
+        //     mode: "cors",
+        //     redirect: 'follow',
+        //     headers:{
+        //         "Content-Type": "application/json",
+        //     }
+        //   })
+        // .then((response) => response.json())
+        // .then((result) => {
+        //     console.log(result.data)
+             setData("data")
+        // .catch((error) => console.error(error));
         const dateSplit = date.split("-")
         const dateFormat = new Date(dateSplit[0], dateSplit[1]-1, dateSplit[2])
         setDate(dateFormat)
@@ -100,7 +99,7 @@ function History () {
                         }
                     </div>
                     <div className="history-graphics">
-                        {(dataDate.dataSensor != null && dataDate.item != '' && dataDate.filter != '') && (
+                    {dataDate.dataSensor != null && dataDate.item != '' && dataDate.filter != '' && date && (
                             <>
                                 <Card className={"no-sensor"}>
                                     {(selectedOption != null) &&
