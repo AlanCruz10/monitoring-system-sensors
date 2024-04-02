@@ -13,75 +13,71 @@ ChartJS.register(
   Legend
 );
 
-function Chart({data}) {
-  console.log(data)
-  const date = [];
-  for (let i = 0; i < 10; i++) {
-      const dates = (Math.random() * 10).toFixed(3)
-      date.push(dates);
-  }
-  const asd = [];
-  for (let i = 0; i < 10; i++) {
-      const datess = Math.random() * 100;
-      asd.push(datess);
-  }
+function Chart({data, date}) {
 
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'bottom',
-      }
+  const colors = {
+    yellow: {
+        borderColor: 'rgba(227, 242, 19, 0.5)',
+        backgroundColor: 'rgba(227, 242, 19, 1)'
     },
-  };
+    blue: {
+        borderColor: 'rgba(23, 52, 235, 0.5)',
+        backgroundColor: 'rgba(23, 52, 235, 1)'
+    },
+    purple: {
+        borderColor: 'rgba(145, 23, 235, 0.5)',
+        backgroundColor: 'rgba(145, 23, 235, 1)'
+    },
+    green: {
+        borderColor: 'rgba(23, 233, 79, 0.5)',
+        backgroundColor: 'rgba(23, 233, 79, 1)'
+    },
+    red: {
+        borderColor: 'rgba(233, 23, 51, 0.5)',
+        backgroundColor: 'rgba(233, 23, 51, 1)'
+    },
+}
 
-    const data_g = {
-      labels: date,
-      datasets:[
-          {
-              label: 'Medición',
-              data: asd,
-              borderColor: 'rgba(227, 242, 19)',
-              backgroundColor: 'rgba(204, 204, 0, 1)',
-              tension: 0.2,
-              fill:true,
-          }
-      ]
+const colorRandom = () => {
+    const coloresKeys = Object.keys(colors);
+    return colors[coloresKeys[Math.round(Math.random() * (coloresKeys.length))]];
+};
+
+
+var label = data[1].map((m, index)=>m.date)
+
+if (data[0] == "year_"+date.getFullYear()) {
+    label = data[1].map((m, index)=>m.date_month)
+}
+
+const dataGraphic = data[1].map((m, index)=>m.value)
+
+const colorR = colorRandom()
+
+const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'bottom',
     }
-      const colors = {
-        yellow: {
-            topColor: 'rgba(227, 242, 19, 0.5)',
-            bottomColor: 'rgba(227, 242, 19, 0.05)',
-            lineColor: 'rgba(227, 242, 19, 1)',
-            lineWidth: 2,
-        },
-        blue: {
-            topColor: 'rgba(19, 19, 242, 0.5)',
-            bottomColor: 'rgba(19, 19, 242, 0.05)',
-            lineColor: 'rgba(19, 19, 242, 1)',
-            lineWidth: 2,
-        },
-        green: {
-            topColor: 'rgba(23, 233, 79, 0.5)',
-            bottomColor: 'rgba(23, 233, 79, 0.05)',
-            lineColor: 'rgba(23, 233, 79, 1)',
-            lineWidth: 2,
-        },
-        red: {
-            topColor: 'rgba(233, 23, 51, 0.5)',
-            bottomColor: 'rgba(233, 23, 51, 0.05)',
-            lineColor: 'rgba(233, 23, 51, 1)',
-            lineWidth: 2,
-        },
+  },
+};
+
+const dataG = {
+  labels: label,
+  datasets:[
+    {
+      label: data[1][0].type,
+      data: dataGraphic,
+      borderColor: colorR.borderColor,
+      backgroundColor: colorR.backgroundColor,
+      tension: 1,
+      fill:true,
     }
+  ]
+}
 
-    const colorRandom = () => {
-        const coloresKeys = Object.keys(colors);
-        return colors[coloresKeys[Math.floor(Math.random() * (coloresKeys.length + 1))]];
-    };
-
-  return (<Line options={options} data={data_g} className="container-graphic"/>);
+  return (<Line options={options} data={dataG} className="container-graphic"/>);
 }
 
 export default Chart;

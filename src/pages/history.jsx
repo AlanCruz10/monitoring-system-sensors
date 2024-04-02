@@ -30,21 +30,30 @@ function History () {
     };
 
     const getDate = (date) => {
-        // console.log(date)
-        // console.log(selectedOption)
-        // fetch(`http://localhost:8080/data/get/history/v1?sensor=${selectedOption}&date=${date}`,{
-        //     method: "GET",
-        //     mode: "cors",
-        //     redirect: 'follow',
-        //     headers:{
-        //         "Content-Type": "application/json",
-        //     }
-        //   })
-        // .then((response) => response.json())
-        // .then((result) => {
-        //     console.log(result.data)
-             setData("data")
-        // .catch((error) => console.error(error));
+        fetch(`http://localhost:8080/data/get/history/v1?sensor=${selectedOption}&date=${date}`,{
+            method: "GET",
+            mode: "cors",
+            redirect: 'follow',
+            headers:{
+                "Content-Type": "application/json",
+            }
+          })
+        .then((response) => {return response.json()})
+        .then((result) => {
+                if (result.status!=200) {
+                    console.error(JSON.stringify(result))
+                }else{
+                    const dataGraphic = []
+                    for (const measurement in result.data) {
+                        const dateMeasurement = []
+                        for (const dateSelected in result.data[measurement])
+                            dateMeasurement.push([dateSelected, result.data[measurement][dateSelected]])
+                        dataGraphic.push([measurement, dateMeasurement])
+                    }
+                    setData(dataGraphic)
+                }
+            })
+        .catch((error) => console.error(error));
         const dateSplit = date.split("-")
         const dateFormat = new Date(dateSplit[0], dateSplit[1]-1, dateSplit[2])
         setDate(dateFormat)
@@ -114,10 +123,68 @@ function History () {
                                             {(dataDate.item == "1Y") && ( 
                                                 <p>AÑO: {date.getFullYear()}</p>
                                             )}
-                                            <h3>Datos de la temp</h3>
-                                            <div className="data-graphics">
-                                                <Chart data={dataDate.dataSensor}/>
-                                            </div>
+                                            <>
+                                                {(dataDate.item == "1D") &&
+                                                    <>
+                                                        {dataDate.dataSensor && dataDate.dataSensor.map((item, index) => (
+                                                            <>
+                                                                {item[1] && item[1].map((i, ind)=>(
+                                                                    <>
+                                                                        {(i[0] == "day_"+date.getDate())&&(
+                                                                            <>
+                                                                                <h3>Datos de la {item[0]}</h3>
+                                                                                <div className="data-graphics">
+                                                                                    <Chart data={item[1][ind]} date={date}/>
+                                                                                </div>
+                                                                            </>
+                                                                        )}
+                                                                    </>
+                                                                ))}
+                                                            </>
+                                                        ))}
+                                                    </>
+                                                }
+                                                {(dataDate.item == "1M") &&
+                                                    <>
+                                                        {dataDate.dataSensor && dataDate.dataSensor.map((item, index) => (
+                                                            <>
+                                                                {item[1] && item[1].map((i, ind)=>(
+                                                                    <>
+                                                                        {(i[0] == "month_"+(date.getMonth()+1))&&(
+                                                                            <>
+                                                                                <h3>Datos de la {item[0]}</h3>
+                                                                                <div className="data-graphics">
+                                                                                    <Chart data={item[1][ind]} date={date}/>
+                                                                                </div>
+                                                                            </>
+                                                                        )}
+                                                                    </>
+                                                                ))}
+                                                            </>
+                                                        ))}
+                                                    </>
+                                                }
+                                                {(dataDate.item == "1Y") && 
+                                                    <>
+                                                        {dataDate.dataSensor && dataDate.dataSensor.map((item, index) => (
+                                                            <>
+                                                                {item[1] && item[1].map((i, ind)=>(
+                                                                    <>
+                                                                        {(i[0] == "year_"+date.getFullYear())&&(
+                                                                            <>
+                                                                                <h3>Datos de la {item[0]}</h3>
+                                                                                <div className="data-graphics">
+                                                                                    <Chart data={item[1][ind]} date={date}/>
+                                                                                </div>
+                                                                            </>
+                                                                        )}
+                                                                    </>
+                                                                ))}
+                                                            </>
+                                                        ))}
+                                                    </>
+                                                }
+                                            </>
                                         </>
                                     }
                                 </Card>
