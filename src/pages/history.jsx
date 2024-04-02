@@ -30,30 +30,31 @@ function History () {
     };
 
     const getDate = (date) => {
-        fetch(`http://localhost:8080/data/get/history/v1?sensor=${selectedOption}&date=${date}`,{
-            method: "GET",
-            mode: "cors",
-            redirect: 'follow',
-            headers:{
-                "Content-Type": "application/json",
-            }
-          })
-        .then((response) => {return response.json()})
-        .then((result) => {
-                if (result.status!=200) {
-                    console.error(JSON.stringify(result))
-                }else{
-                    const dataGraphic = []
-                    for (const measurement in result.data) {
-                        const dateMeasurement = []
-                        for (const dateSelected in result.data[measurement])
-                            dateMeasurement.push([dateSelected, result.data[measurement][dateSelected]])
-                        dataGraphic.push([measurement, dateMeasurement])
-                    }
-                    setData(dataGraphic)
-                }
-            })
-        .catch((error) => console.error(error));
+        // fetch(`http://localhost:8080/data/get/history/v1?sensor=${selectedOption}&date=${date}`,{
+        //     method: "GET",
+        //     mode: "cors",
+        //     redirect: 'follow',
+        //     headers:{
+        //         "Content-Type": "application/json",
+        //     }
+        //   })
+        // .then((response) => {return response.json()})
+        // .then((result) => {
+        //         if (result.status!=200) {
+        //             console.error(JSON.stringify(result))
+        //         }else{
+        //             const dataGraphic = []
+        //             for (const measurement in result.data) {
+        //                 const dateMeasurement = []
+        //                 for (const dateSelected in result.data[measurement])
+        //                     dateMeasurement.push([dateSelected, result.data[measurement][dateSelected]])
+        //                 dataGraphic.push([measurement, dateMeasurement])
+        //             }
+                    // setData(dataGraphic)
+                    setData("data")
+        //         }
+        //     })
+        // .catch((error) => console.error(error));
         const dateSplit = date.split("-")
         const dateFormat = new Date(dateSplit[0], dateSplit[1]-1, dateSplit[2])
         setDate(dateFormat)
@@ -124,7 +125,11 @@ function History () {
                                                 <p>AÑO: {date.getFullYear()}</p>
                                             )}
                                             <>
-                                                {(dataDate.item == "1D") &&
+                                                <h3>Datos de la temp</h3>
+                                                <div className="data-graphics">
+                                                    <Chart data={dataDate.dataSensor}/>
+                                                </div>
+                                                {/* {(dataDate.item == "1D") &&
                                                     <>
                                                         {dataDate.dataSensor && dataDate.dataSensor.map((item, index) => (
                                                             <>
@@ -183,7 +188,7 @@ function History () {
                                                             </>
                                                         ))}
                                                     </>
-                                                }
+                                                } */}
                                             </>
                                         </>
                                     }

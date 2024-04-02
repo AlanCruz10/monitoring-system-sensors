@@ -44,13 +44,28 @@ const colorRandom = () => {
 };
 
 
-var label = data[1].map((m, index)=>m.date)
+// var label = data[1].map((m, index)=>m.date)
 
-if (data[0] == "year_"+date.getFullYear()) {
-    label = data[1].map((m, index)=>m.date_month)
+// if (data[0] == "year_"+date.getFullYear()) {
+//   label = data[1].map((m, index)=>m.date_month)
+// }
+
+// if (data[0] == "day_"+date.getDate()) {
+//   label = data[1].map((m, index)=>m.time)
+// }
+
+const dataGraphic = [];
+for (let i = 0; i < 10; i++) {
+    const dataGraphics = (Math.random() * 10).toFixed(3)
+    dataGraphic.push(dataGraphics);
+}
+const label = [];
+for (let i = 0; i < 10; i++) {
+    const labels = Math.random() * 100;
+    label.push(labels);
 }
 
-const dataGraphic = data[1].map((m, index)=>m.value)
+// const dataGraphic = data[1].map((m, index)=>m.value)
 
 const colorR = colorRandom()
 
@@ -67,10 +82,11 @@ const dataG = {
   labels: label,
   datasets:[
     {
-      label: data[1][0].type,
+      // label: data[1][0].type,
+      label: "humedad xd",
       data: dataGraphic,
-      borderColor: colorR.borderColor,
-      backgroundColor: colorR.backgroundColor,
+      borderColor: 'rgba(227, 242, 19, 0.5)',
+      backgroundColor: 'rgba(227, 242, 19, 1)',
       tension: 1,
       fill:true,
     }
