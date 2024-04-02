@@ -12,6 +12,7 @@
     justify-content: center;
     align-items: center;
     padding-top: 20px;
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .choose-sensor {
@@ -97,7 +98,6 @@
 .input-date{
     position: absolute;
     top: 0;
-    margin-left: -15%;
     width: 78%;
     z-index: -1;
 }

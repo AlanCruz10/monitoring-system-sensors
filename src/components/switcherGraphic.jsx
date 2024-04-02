@@ -6,13 +6,19 @@ function SwitcherGraphic(props) {
     const {dataDate, setDataDate} = useContext(Context)
     const [activate, setActivate] = useState('')
 
-    const intervals = ['1D', '1M', '1Y'];
+    const intervals = ['Día', 'Mes', 'Año'];
 
 
     const rangeSelect = (item, data, date) => {
         setActivate(item)
         setDataDate({...dataDate, item: item, dataSensor: data, filter: date})
     }
+
+    useEffect(() => {
+        if (!props.selectedOption || !props.date) {
+            setActivate('')
+        }
+    }, [props.selectedOption, props.date])
 
 
     return (

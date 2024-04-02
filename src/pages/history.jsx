@@ -12,15 +12,16 @@ import Chart from '../components/graphicData';
 function History () {
     const [showPanel, setShowPanel] = useState(false);
     const {dataDate, setDataDate} = useContext(Context);
-    const [selectDate, setSelectDate] =  useState(false)
+    const [showOption, setShowOption] =  useState(false)
+    const [result, setResult] = useState(0)
     const [selectedOption, setSelectedOption] = useState(null);
     const [date, setDate] = useState("");
-    const [dateString, setDateString] = useState([])
     const [data, setData] = useState(null);
 
     const options = ['DS18B20', 'DHT11'];
 
     const togglePanel = () => {
+        dataDate.filter = ''
         setShowPanel(!showPanel);
     };
 
@@ -29,7 +30,14 @@ function History () {
         togglePanel()
     };
 
+    const resetSelection = () => {
+        setDate("");
+        dataDate.filter = ''
+    };
+
+
     const getDate = (date) => {
+        resetSelection()
         // fetch(`http://localhost:8080/data/get/history/v1?sensor=${selectedOption}&date=${date}`,{
         //     method: "GET",
         //     mode: "cors",
@@ -42,6 +50,7 @@ function History () {
         // .then((result) => {
         //         if (result.status!=200) {
         //             console.error(JSON.stringify(result))
+                        setResult(result.status)
         //         }else{
         //             const dataGraphic = []
         //             for (const measurement in result.data) {
@@ -51,6 +60,7 @@ function History () {
         //                 dataGraphic.push([measurement, dateMeasurement])
         //             }
                     // setData(dataGraphic)
+                    setResult(0)
                     setData("data")
         //         }
         //     })
@@ -59,6 +69,12 @@ function History () {
         const dateFormat = new Date(dateSplit[0], dateSplit[1]-1, dateSplit[2])
         setDate(dateFormat)
     }
+    
+    const getMonthName = (monthNumber) => {
+        const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        return months[monthNumber - 1];
+    }
+    
 
     return (
         <div>
@@ -71,7 +87,10 @@ function History () {
                     <h1>HISTORIAL</h1>
                     <div className="choose-sensor">
                         <div className='choose-sensor-btn-div'>
-                            <Button className={"choose-sensor-button"} text={selectedOption ? selectedOption : "SELECT A SENSOR"} action={togglePanel}/>
+                        <Button className={"choose-sensor-button"} text={selectedOption ? selectedOption : "SELECCIONA UN SENSOR"} action={() => {
+                                resetSelection();
+                                togglePanel();
+                            }}/>
                             {showPanel && (
                                 <div className="panel">
                                     {options.map((option, index) => (
@@ -86,10 +105,14 @@ function History () {
                             <>
                                 <div className='date-selector-input'>
                                     <Button 
-                                        text={"SELECT A DATE"} 
+                                        text={"SELECCIONA UNA FECHA"} 
                                         icon={<img src='calendar.png' alt='calendar icon' />} 
                                         className={"choose-date-button"}
-                                        action={() => document.getElementById('date_selector').showPicker()}
+                                        action={() => {
+                                            document.getElementById('date_selector').showPicker()
+                                            resetSelection()
+                                        }
+                                        }
                                     />
                                     <input 
                                         id='date_selector'
@@ -102,27 +125,35 @@ function History () {
                                     <div>
                                         <SwitcherGraphic 
                                         data={data}
-                                        date={date}/>
+                                        date={date}
+                                        selectedOption={selectedOption}/>
                                     </div>
                                 }
                             </>
                         }
                     </div>
                     <div className="history-graphics">
+                    {result == 200 && (
+                        <>
+                            <Card className={"no-sensor"}>
+                                <h2>NO HAY DATOS PARA ESA FECHA</h2>
+                            </Card>
+                        </>
+                    )}
                     {dataDate.dataSensor != null && dataDate.item != '' && dataDate.filter != '' && date && (
                             <>
                                 <Card className={"no-sensor"}>
                                     {(selectedOption != null) &&
                                         <>
                                             <h2>Sensor {selectedOption}: Filtrado por {dataDate.item}</h2>
-                                            {(dataDate.item == "1D") && ( 
-                                                <p>DIA: {date.getDate()}</p>
+                                            {(dataDate.item == "Día") && ( 
+                                                <p><b>DÍA:</b> {date.getDate()}</p>
                                             )}
-                                            {(dataDate.item == "1M") && ( 
-                                                <p>MES: {date.getMonth() + 1}</p>
+                                            {(dataDate.item == "Mes") && ( 
+                                                <p><b>MES:</b> {getMonthName(date.getMonth() + 1)}</p>
                                             )}
-                                            {(dataDate.item == "1Y") && ( 
-                                                <p>AÑO: {date.getFullYear()}</p>
+                                            {(dataDate.item == "Año") && ( 
+                                                <p><b>AÑO:</b> {date.getFullYear()}</p>
                                             )}
                                             <>
                                                 <h3>Datos de la temp</h3>

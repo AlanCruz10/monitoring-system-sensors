@@ -29,7 +29,7 @@ function NavBar() {
 
     return (
         <div className="nav-bar">
-            <Button action={seeData} text="Home" isActive={pageHome} />
+            <Button action={seeData} text="Principal" isActive={pageHome} />
             <Button action={seeHistory} text="Historial" isActive={pageHistory} />
         </div>
     );

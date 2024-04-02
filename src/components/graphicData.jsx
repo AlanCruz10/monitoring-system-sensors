@@ -1,4 +1,4 @@
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from "chart.js";
 import { Line } from "react-chartjs-2";
 import '../assets/styles/graphic.css'
 
@@ -10,7 +10,8 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  Filler,
 );
 
 function Chart({data, date}) {
@@ -73,7 +74,7 @@ const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'bottom',
+      position: 'right',
     }
   },
 };
@@ -85,10 +86,11 @@ const dataG = {
       // label: data[1][0].type,
       label: "humedad xd",
       data: dataGraphic,
-      borderColor: 'rgba(227, 242, 19, 0.5)',
-      backgroundColor: 'rgba(227, 242, 19, 1)',
-      tension: 1,
       fill:true,
+      borderColor: 'rgba(227, 242, 19, 0.5)',
+      backgroundColor: 'rgba(227, 242, 19, 0.2)',
+      pointBackgroundColor:'rgba(0, 0, 0, 1)',
+      tension: 1,
     }
   ]
 }
