@@ -16,65 +16,23 @@ ChartJS.register(
 
 function Chart({data, date}) {
 
-  const colors = {
-    yellow: {
-        borderColor: 'rgba(227, 242, 19, 0.5)',
-        backgroundColor: 'rgba(227, 242, 19, 1)'
-    },
-    blue: {
-        borderColor: 'rgba(23, 52, 235, 0.5)',
-        backgroundColor: 'rgba(23, 52, 235, 1)'
-    },
-    purple: {
-        borderColor: 'rgba(145, 23, 235, 0.5)',
-        backgroundColor: 'rgba(145, 23, 235, 1)'
-    },
-    green: {
-        borderColor: 'rgba(23, 233, 79, 0.5)',
-        backgroundColor: 'rgba(23, 233, 79, 1)'
-    },
-    red: {
-        borderColor: 'rgba(233, 23, 51, 0.5)',
-        backgroundColor: 'rgba(233, 23, 51, 1)'
-    },
+var label = data[1].map((m, index)=>m.date)
+
+if (data[0] == "year_"+date.getFullYear()) {
+  label = data[1].map((m, index)=>m.date_month)
 }
 
-const colorRandom = () => {
-    const coloresKeys = Object.keys(colors);
-    return colors[coloresKeys[Math.round(Math.random() * (coloresKeys.length))]];
-};
-
-
-// var label = data[1].map((m, index)=>m.date)
-
-// if (data[0] == "year_"+date.getFullYear()) {
-//   label = data[1].map((m, index)=>m.date_month)
-// }
-
-// if (data[0] == "day_"+date.getDate()) {
-//   label = data[1].map((m, index)=>m.time)
-// }
-
-const dataGraphic = [];
-for (let i = 0; i < 10; i++) {
-    const dataGraphics = (Math.random() * 10).toFixed(3)
-    dataGraphic.push(dataGraphics);
-}
-const label = [];
-for (let i = 0; i < 10; i++) {
-    const labels = Math.random() * 100;
-    label.push(labels);
+if (data[0] == "day_"+date.getDate()) {
+  label = data[1].map((m, index)=>m.time)
 }
 
-// const dataGraphic = data[1].map((m, index)=>m.value)
-
-const colorR = colorRandom()
+const dataGraphic = data[1].map((m, index)=>m.value)
 
 const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'right',
+      position: 'top',
     }
   },
 };
@@ -83,8 +41,7 @@ const dataG = {
   labels: label,
   datasets:[
     {
-      // label: data[1][0].type,
-      label: "humedad xd",
+      label: data[1][0].type,
       data: dataGraphic,
       fill:true,
       borderColor: 'rgba(227, 242, 19, 0.5)',

@@ -26,6 +26,7 @@ function History () {
     };
 
     const selectOption = (option) => {
+        resetSelection();
         setSelectedOption(option);
         togglePanel()
     };
@@ -38,33 +39,31 @@ function History () {
 
     const getDate = (date) => {
         resetSelection()
-        // fetch(`http://localhost:8080/data/get/history/v1?sensor=${selectedOption}&date=${date}`,{
-        //     method: "GET",
-        //     mode: "cors",
-        //     redirect: 'follow',
-        //     headers:{
-        //         "Content-Type": "application/json",
-        //     }
-        //   })
-        // .then((response) => {return response.json()})
-        // .then((result) => {
-        //         if (result.status!=200) {
-        //             console.error(JSON.stringify(result))
-                        setResult(result.status)
-        //         }else{
-        //             const dataGraphic = []
-        //             for (const measurement in result.data) {
-        //                 const dateMeasurement = []
-        //                 for (const dateSelected in result.data[measurement])
-        //                     dateMeasurement.push([dateSelected, result.data[measurement][dateSelected]])
-        //                 dataGraphic.push([measurement, dateMeasurement])
-        //             }
-                    // setData(dataGraphic)
+        fetch(`http://localhost:8080/data/get/history/v1?sensor=${selectedOption}&date=${date}`,{
+            method: "GET",
+            mode: "cors",
+            redirect: 'follow',
+            headers:{
+                "Content-Type": "application/json",
+            }
+          })
+        .then((response) => {return response.json()})
+        .then((result) => {
+                if (result.status!=200) {
+                    setResult(result.status)
+                }else{
+                    const dataGraphic = []
+                    for (const measurement in result.data) {
+                        const dateMeasurement = []
+                        for (const dateSelected in result.data[measurement])
+                            dateMeasurement.push([dateSelected, result.data[measurement][dateSelected]])
+                        dataGraphic.push([measurement, dateMeasurement])
+                    }
+                    setData(dataGraphic)
                     setResult(0)
-                    setData("data")
-        //         }
-        //     })
-        // .catch((error) => console.error(error));
+                }
+            })
+        .catch((error) => console.error(error));
         const dateSplit = date.split("-")
         const dateFormat = new Date(dateSplit[0], dateSplit[1]-1, dateSplit[2])
         setDate(dateFormat)
@@ -88,7 +87,6 @@ function History () {
                     <div className="choose-sensor">
                         <div className='choose-sensor-btn-div'>
                         <Button className={"choose-sensor-button"} text={selectedOption ? selectedOption : "SELECCIONA UN SENSOR"} action={() => {
-                                resetSelection();
                                 togglePanel();
                             }}/>
                             {showPanel && (
@@ -110,7 +108,6 @@ function History () {
                                         className={"choose-date-button"}
                                         action={() => {
                                             document.getElementById('date_selector').showPicker()
-                                            resetSelection()
                                         }
                                         }
                                     />
@@ -133,7 +130,7 @@ function History () {
                         }
                     </div>
                     <div className="history-graphics">
-                    {result == 200 && (
+                    {(result != 200 && result != 0) && (
                         <>
                             <Card className={"no-sensor"}>
                                 <h2>NO HAY DATOS PARA ESA FECHA</h2>
@@ -156,11 +153,7 @@ function History () {
                                                 <p><b>AÑO:</b> {date.getFullYear()}</p>
                                             )}
                                             <>
-                                                <h3>Datos de la temp</h3>
-                                                <div className="data-graphics">
-                                                    <Chart data={dataDate.dataSensor}/>
-                                                </div>
-                                                {/* {(dataDate.item == "1D") &&
+                                                {(dataDate.item == "Día") &&
                                                     <>
                                                         {dataDate.dataSensor && dataDate.dataSensor.map((item, index) => (
                                                             <>
@@ -180,7 +173,7 @@ function History () {
                                                         ))}
                                                     </>
                                                 }
-                                                {(dataDate.item == "1M") &&
+                                                {(dataDate.item == "Mes") &&
                                                     <>
                                                         {dataDate.dataSensor && dataDate.dataSensor.map((item, index) => (
                                                             <>
@@ -200,7 +193,7 @@ function History () {
                                                         ))}
                                                     </>
                                                 }
-                                                {(dataDate.item == "1Y") && 
+                                                {(dataDate.item == "Año") && 
                                                     <>
                                                         {dataDate.dataSensor && dataDate.dataSensor.map((item, index) => (
                                                             <>
@@ -219,7 +212,7 @@ function History () {
                                                             </>
                                                         ))}
                                                     </>
-                                                } */}
+                                                }
                                             </>
                                         </>
                                     }
