@@ -140,92 +140,93 @@ function History () {
                         }
                     </div>
                     <div className="history-graphics">
-                    {(result != 200 && result != 0) && (
-                        <Card className={"no-sensor"}>
-                            <h2>NO HAY DATOS PARA ESA FECHA</h2>
-                        </Card>
-                    )}
-                    {dataDate.dataSensor != null && dataDate.item != '' && dataDate.filter != '' && date && (
+                        {(result != 200 && result != 0) ? (
+                            <Card className={"no-sensor"}>
+                                <h2>NO HAY DATOS PARA ESA FECHA</h2>
+                            </Card>
+                        ) :  (
                             <>
-                                <Card className={"no-sensor"}>
-                                    {(selectedOption != null) &&
+                                {(dataDate.dataSensor != null && dataDate.item != '' && dataDate.filter != '' && date) && (
+                                    <Card className={"no-sensor"}>
+                                {(selectedOption != null) &&
+                                    <>
+                                        <h2>Sensor {selectedOption}: Filtrado por {dataDate.item}</h2>
+                                        {(dataDate.item == "Día") && ( 
+                                            <p><b>DÍA:</b> {date.getDate()}</p>
+                                        )}
+                                        {(dataDate.item == "Mes") && ( 
+                                            <p><b>MES:</b> {getMonthName(date.getMonth() + 1)}</p>
+                                        )}
+                                        {(dataDate.item == "Año") && ( 
+                                            <p><b>AÑO:</b> {date.getFullYear()}</p>
+                                        )}
                                         <>
-                                            <h2>Sensor {selectedOption}: Filtrado por {dataDate.item}</h2>
-                                            {(dataDate.item == "Día") && ( 
-                                                <p><b>DÍA:</b> {date.getDate()}</p>
-                                            )}
-                                            {(dataDate.item == "Mes") && ( 
-                                                <p><b>MES:</b> {getMonthName(date.getMonth() + 1)}</p>
-                                            )}
-                                            {(dataDate.item == "Año") && ( 
-                                                <p><b>AÑO:</b> {date.getFullYear()}</p>
-                                            )}
-                                            <>
-                                                {(dataDate.item == "Día") &&
-                                                    <>
-                                                        {dataDate.dataSensor && dataDate.dataSensor.map((item, index) => (
-                                                            <>
-                                                                {item[1] && item[1].map((i, ind)=>(
-                                                                    <>
-                                                                        {(i[0] == "day_"+date.getDate())&&(
-                                                                            <>
-                                                                                <h3>Datos de la {item[0]}</h3>
-                                                                                <div className="data-graphics">
-                                                                                    <Chart data={item[1][ind]} date={date}/>
-                                                                                </div>
-                                                                            </>
-                                                                        )}
-                                                                    </>
-                                                                ))}
-                                                            </>
-                                                        ))}
-                                                    </>
-                                                }
-                                                {(dataDate.item == "Mes") &&
-                                                    <>
-                                                        {dataDate.dataSensor && dataDate.dataSensor.map((item, index) => (
-                                                            <>
-                                                                {item[1] && item[1].map((i, ind)=>(
-                                                                    <>
-                                                                        {(i[0] == "month_"+(date.getMonth()+1))&&(
-                                                                            <>
-                                                                                <h3>Datos de la {item[0]}</h3>
-                                                                                <div className="data-graphics">
-                                                                                    <Chart data={item[1][ind]} date={date}/>
-                                                                                </div>
-                                                                            </>
-                                                                        )}
-                                                                    </>
-                                                                ))}
-                                                            </>
-                                                        ))}
-                                                    </>
-                                                }
-                                                {(dataDate.item == "Año") && 
-                                                    <>
-                                                        {dataDate.dataSensor && dataDate.dataSensor.map((item, index) => (
-                                                            <>
-                                                                {item[1] && item[1].map((i, ind)=>(
-                                                                    <>
-                                                                        {(i[0] == "year_"+date.getFullYear())&&(
-                                                                            <>
-                                                                                <h3>Datos de la {item[0]}</h3>
-                                                                                <div className="data-graphics">
-                                                                                    <Chart data={item[1][ind]} date={date}/>
-                                                                                </div>
-                                                                            </>
-                                                                        )}
-                                                                    </>
-                                                                ))}
-                                                            </>
-                                                        ))}
-                                                    </>
-                                                }
-                                            </>
+                                            {(dataDate.item == "Día") &&
+                                                <>
+                                                    {dataDate.dataSensor && dataDate.dataSensor.map((item, index) => (
+                                                        <>
+                                                            {item[1] && item[1].map((i, ind)=>(
+                                                                <>
+                                                                    {(i[0] == "day_"+date.getDate())&&(
+                                                                        <>
+                                                                            <h3>Datos de la {item[0]}</h3>
+                                                                            <div className="data-graphics">
+                                                                                <Chart data={item[1][ind]} date={date}/>
+                                                                            </div>
+                                                                        </>
+                                                                    )}
+                                                                </>
+                                                            ))}
+                                                        </>
+                                                    ))}
+                                                </>
+                                            }
+                                            {(dataDate.item == "Mes") &&
+                                                <>
+                                                    {dataDate.dataSensor && dataDate.dataSensor.map((item, index) => (
+                                                        <>
+                                                            {item[1] && item[1].map((i, ind)=>(
+                                                                <>
+                                                                    {(i[0] == "month_"+(date.getMonth()+1))&&(
+                                                                        <>
+                                                                            <h3>Datos de la {item[0]}</h3>
+                                                                            <div className="data-graphics">
+                                                                                <Chart data={item[1][ind]} date={date}/>
+                                                                            </div>
+                                                                        </>
+                                                                    )}
+                                                                </>
+                                                            ))}
+                                                        </>
+                                                    ))}
+                                                </>
+                                            }
+                                            {(dataDate.item == "Año") && 
+                                                <>
+                                                    {dataDate.dataSensor && dataDate.dataSensor.map((item, index) => (
+                                                        <>
+                                                            {item[1] && item[1].map((i, ind)=>(
+                                                                <>
+                                                                    {(i[0] == "year_"+date.getFullYear())&&(
+                                                                        <>
+                                                                            <h3>Datos de la {item[0]}</h3>
+                                                                            <div className="data-graphics">
+                                                                                <Chart data={item[1][ind]} date={date}/>
+                                                                            </div>
+                                                                        </>
+                                                                    )}
+                                                                </>
+                                                            ))}
+                                                        </>
+                                                    ))}
+                                                </>
+                                            }
                                         </>
-                                    }
-                                </Card>
-                            </>
+                                    </>
+                                }
+                            </Card>     
+                                )}  
+                            </> 
                         )}
                     </div>
                 </Modal>

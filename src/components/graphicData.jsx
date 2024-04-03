@@ -47,7 +47,7 @@ const dataG = {
       borderColor: 'rgba(227, 242, 19, 0.5)',
       backgroundColor: 'rgba(227, 242, 19, 0.2)',
       pointBackgroundColor:'rgba(0, 0, 0, 1)',
-      tension: 1,
+      tension: 0.001,
     }
   ]
 }
