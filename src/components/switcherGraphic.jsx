@@ -4,6 +4,8 @@ import Context from '../context/context';
 
 function SwitcherGraphic(props) {
     const {dataDate, setDataDate} = useContext(Context)
+    const [selectionState, setSelectionState] = useState("")
+    const [selectionDate, setSelectionDate] = useState("")
     const [activate, setActivate] = useState('')
 
     const intervals = ['Día', 'Mes', 'Año'];
@@ -15,9 +17,11 @@ function SwitcherGraphic(props) {
     }
 
     useEffect(() => {
-        if (!props.selectedOption || !props.date) {
+        if (selectionState != props.selectedOption || selectionDate != props.date) {
             setActivate('')
         }
+        setSelectionState(props.selectedOption)
+        setSelectionDate(props.date)
     }, [props.selectedOption, props.date])
 
 

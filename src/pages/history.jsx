@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useCallback} from 'react';
 import Header from "../layouts/header";
 import NavBar from "../components/navBar";
 import Modal from "../containers/modal";
@@ -12,41 +12,43 @@ import Chart from '../components/graphicData';
 function History () {
     const [showPanel, setShowPanel] = useState(false);
     const {dataDate, setDataDate} = useContext(Context);
-    const [showOption, setShowOption] =  useState(false)
     const [result, setResult] = useState(0)
     const [selectedOption, setSelectedOption] = useState(null);
+    const [selectionState, setSelectionState] = useState("")
     const [date, setDate] = useState("");
+    const [dateBeforeEdit, setDateBeforeEdit] = useState("");
     const [data, setData] = useState(null);
 
     const options = ['DS18B20', 'DHT11'];
 
     const togglePanel = () => {
-        dataDate.filter = ''
         setShowPanel(!showPanel);
-    };
-
-    const selectOption = (option) => {
-        resetSelection();
-        setSelectedOption(option);
-        togglePanel()
+        dataDate.filter = ''
     };
 
     const resetSelection = () => {
-        setDate("");
         dataDate.filter = ''
+        if(selectedOption != selectionState && data != null){
+            getDate(dateBeforeEdit)
+        }
+        setSelectionState(selectedOption)
     };
 
+    useEffect(() => {
+        if (selectedOption !== null) {
+            togglePanel();
+            resetSelection();
+        }
+    }, [selectedOption]);
 
-    const getDate = (date) => {
-        resetSelection()
+    const getDate = useCallback((date) => {
         fetch(`http://localhost:8080/data/get/history/v1?sensor=${selectedOption}&date=${date}`,{
             method: "GET",
             mode: "cors",
             redirect: 'follow',
             headers:{
                 "Content-Type": "application/json",
-            }
-          })
+            }})
         .then((response) => {return response.json()})
         .then((result) => {
                 if (result.status!=200) {
@@ -67,7 +69,7 @@ function History () {
         const dateSplit = date.split("-")
         const dateFormat = new Date(dateSplit[0], dateSplit[1]-1, dateSplit[2])
         setDate(dateFormat)
-    }
+    } ,  [selectedOption]);
     
     const getMonthName = (monthNumber) => {
         const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -92,7 +94,12 @@ function History () {
                             {showPanel && (
                                 <div className="panel">
                                     {options.map((option, index) => (
-                                            <p key={index} onClick={() => selectOption(option)}>
+                                            <p key={index} onClick={() => {
+                                                setSelectedOption(option, () => {
+                                                    togglePanel();
+                                                    resetSelection();
+                                                });
+                                            }}>
                                                 {option}
                                             </p>
                                         ))}
@@ -115,7 +122,10 @@ function History () {
                                         id='date_selector'
                                         className='input-date'
                                         type='date'
-                                        onChange={(e) => getDate(e.target.value)}
+                                        onChange={(e) => {
+                                            setDateBeforeEdit(e.target.value)
+                                            getDate(e.target.value)
+                                        }}
                                     />
                                 </div>
                                 {(date != null && data != null) && 
@@ -131,11 +141,9 @@ function History () {
                     </div>
                     <div className="history-graphics">
                     {(result != 200 && result != 0) && (
-                        <>
-                            <Card className={"no-sensor"}>
-                                <h2>NO HAY DATOS PARA ESA FECHA</h2>
-                            </Card>
-                        </>
+                        <Card className={"no-sensor"}>
+                            <h2>NO HAY DATOS PARA ESA FECHA</h2>
+                        </Card>
                     )}
                     {dataDate.dataSensor != null && dataDate.item != '' && dataDate.filter != '' && date && (
                             <>
