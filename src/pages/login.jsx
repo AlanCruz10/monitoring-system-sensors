@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Modal from "../containers/modal";
 import '../assets/styles/login.css';
+import Index from '../components';
 
 function Login() {
   // Estado para almacenar el correo electrónico y la contraseña
@@ -35,24 +36,27 @@ function Login() {
   };
 
   return (
-    <div className="login-body">
-        <Modal className={"login-modal"}>
-            <div className="login-header"><center><h1>Inicio de sesión</h1></center></div>
-            <div className="modal-content">
-              <form onSubmit={handleSubmit}>
-                <div className="email-section input-style">
-                  <div><label htmlFor="email">Correo electrónico:</label></div>
-                  <input type="email" id="email" name="email" value={email} onChange={handleEmailChange} required></input> {/* Agrega value y onChange */}
+    <>
+        <div className="login-body">
+            <Modal className={"login-modal"}>
+                <div className="login-header"><center><h1>Inicio de sesión</h1></center></div>
+                <div className="modal-content">
+                  <form onSubmit={handleSubmit}>
+                    <div className="email-section input-style">
+                      <div><label htmlFor="email">Correo electrónico:</label></div>
+                      <input type="email" id="email" name="email" value={email} onChange={handleEmailChange} required></input> {/* Agrega value y onChange */}
+                    </div>
+                    <div className="pass-section input-style">
+                      <div><label htmlFor="password">Contraseña:</label></div>
+                      <input type="password" id="password" name="password" value={password} onChange={handlePasswordChange} required></input> {/* Agrega value y onChange */}
+                    </div>
+                    <div className="btn-login"><button type="submit" className="login-button">Iniciar sesión</button></div>
+                  </form>
                 </div>
-                <div className="pass-section input-style">
-                  <div><label htmlFor="password">Contraseña:</label></div>
-                  <input type="password" id="password" name="password" value={password} onChange={handlePasswordChange} required></input> {/* Agrega value y onChange */}
-                </div>
-                <div className="btn-login"><button type="submit" className="login-button">Iniciar sesión</button></div>
-              </form>
-            </div>
-        </Modal>
-    </div>
+            </Modal>
+        </div>
+        <Index />
+    </>
   );
 }
 
