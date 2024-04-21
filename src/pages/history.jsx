@@ -84,7 +84,7 @@ function History () {
                 <NavBar />
             </div>
             <div className="home-body">
-                <Modal>
+                <Modal className={"container-modal"}>
                     <h1>HISTORIAL</h1>
                     <div className="choose-sensor">
                         <div className='choose-sensor-btn-div'>

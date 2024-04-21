@@ -4,6 +4,7 @@ import History from "../pages/history";
 import Graphic from "../pages/graphic";
 import { useState } from "react";
 import Context from "../context/context";
+import Login from "../pages/login";
 
 function Router() {
   const [dataDate, setDataDate] = useState({
@@ -16,7 +17,8 @@ function Router() {
     <BrowserRouter>
       <Context.Provider value={{dataDate, setDataDate}}>
         <Routes>
-            <Route path="/" element={<Home/>}></Route>
+            <Route path="/" element={<Login></Login>}></Route>
+            <Route path="/home" element={<Home/>}></Route>
             <Route path="/history" element={<History/>}></Route>
             <Route path="/g" element={<Graphic/>}></Route>
         </Routes>

@@ -5,3 +5,44 @@
     border-radius: 15px;
     box-shadow: 4px 5px 6px rgba(0, 0, 0, 0.2);
 }
+
+.login-modal {
+    width: 30%;
+    margin-top: 7%;
+    background-color: #D9D9D9;
+    border-radius: 15px;
+    box-shadow: 4px 5px 6px rgba(0, 0, 0, 0.2);
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 2.2vh;
+}
+
+.modal-content {
+    padding: 0px 40px;
+}
+
+.login-modal form, label {
+    font-size: 2vh;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 600px) {
+    
+    h1{
+      font-size: 15px;
+    }
+    
+    label {
+        font-size: 12px;
+    }
+
+    .login-modal {
+        width: 70%;
+        margin: 40% 0%;
+        background-color: #D9D9D9;
+        border-radius: 15px;
+        box-shadow: 4px 5px 6px rgba(0, 0, 0, 0.2);
+        font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 2.2vh;
+    }
+
+}

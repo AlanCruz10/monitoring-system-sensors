@@ -2,6 +2,7 @@ import "../assets/styles/home.css"
 import { useEffect, useState } from "react";
 import { getData } from "../firebase/conexionFirebase";
 import { ref, onValue } from "firebase/database";
+import addNotification from 'react-push-notification'
 import Header from "../layouts/header"
 import NavBar from "../components/navBar";
 import Modal from "../containers/modal"
@@ -13,9 +14,13 @@ function Home (){
 
     const [temperatureDht11, setTemperatureDht11] = useState(0);
     const [humidityDht11, setHumidityDht11Dht11] = useState(0);
-    const [temperaureDs18b20, setTemperaureDs18b20] = useState(0);
+    const [temperaureDs18b20, setTemperaureDs18b20] = useState(35.44);
+    const tempDs18b20Min = 10
+    const tempDs18b20Max = 30
 
     useEffect(() => {
+        Notification.requestPermission()
+
         const db = getData()
         const count = ref(db, '/sensor')
 
@@ -26,7 +31,17 @@ function Home (){
             setHumidityDht11Dht11(dataFirebase.dht11.humidity)
             setTemperaureDs18b20(dataFirebase.ds18b20.temperature)
         });
-
+        
+        if (temperaureDs18b20 <= tempDs18b20Min || temperaureDs18b20 >= tempDs18b20Max) {
+            addNotification({
+                title: 'ALERTA',
+                message: `Temperatura del sensor DS18B20 llegando a niveles críticos\nTemperatura: ${temperaureDs18b20}`,
+                duration:4000,
+                icon: 'warning.png',
+                native: true
+            })
+        }
+        
     }, []);
 
     const seeHistory = () => {
@@ -55,7 +70,7 @@ function Home (){
                 <NavBar />
             </div>
             <div className="home-body">
-                <Modal>
+                <Modal className={"container-modal"}>
                     <h1>CUARTO DE MÁQUINAS</h1>
                     <div className="sensor-area">
                         <Card 
@@ -67,7 +82,7 @@ function Home (){
                         <Card 
                             enable={true}
                             state={false} 
-                            sensor_name="DHTC11"
+                            sensor_name="DHT11"
                             sensor1_value={sensors[1].number + "°C"}
                             sensor1_description="Sensor de temperatura"
                             sensor2_value={sensors[0].number + "%HR"}

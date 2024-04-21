@@ -1,10 +1,10 @@
 import "../assets/styles/modal.css"
 
-function Modal ({children}) {
+function Modal (props) {
     return (
         <>
-            <div className="container-modal">
-                {children}
+            <div className={props.className}>
+                {props.children}
             </div>
         </>
     )

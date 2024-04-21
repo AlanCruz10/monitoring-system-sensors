@@ -1,0 +1,63 @@
+.login-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-header {
+    background-color: #FFCC00;
+    background-color: #FFCC00;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.login-header h1 {
+    margin-top: 0;
+    padding: 10px 0px;
+}
+
+.input-style input {
+    width: 100%;
+    height: 5vh;
+    border: black 1px solid;
+    border-radius: 9px;
+    text-indent: 2%;
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.email-section {
+    padding-top: 10%;
+}
+
+.pass-section {
+    padding-top: 15%;
+}
+
+.btn-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5%;
+}
+
+@media only screen and (max-width: 600px) { 
+
+    .input-style input {
+        width: 100%;
+        height: 4vh;
+        border: black 1px solid;
+        border-radius: 9px;
+        border-radius: 6px;
+        text-indent: 5%;
+        font-size: 1.5vh;
+        font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    
+    .email-section {
+        padding-top: 10%;
+    }
+    
+    .pass-section {
+        padding-top: 15%;
+    }
+}

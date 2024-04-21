@@ -10,7 +10,7 @@ function NavBar() {
     const [pageHistory, setPageHistory] = useState(false);
 
     useEffect(() => {
-        if (location.pathname === '/') {
+        if (location.pathname === '/home') {
             setPageHome(true);
             setPageHistory(false);
         } else if (location.pathname === '/history') {
@@ -24,7 +24,7 @@ function NavBar() {
     };
     
     const seeData = () => {
-        navigate('/');
+        navigate('/home');
     };
 
     return (
