@@ -1,12 +1,14 @@
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import Modal from "../containers/modal";
 import '../assets/styles/login.css';
 import Index from '../components';
 
 function Login() {
-  // Estado para almacenar el correo electrónico y la contraseña
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showError, setShowError] = useState(false); // Variable de estado para mostrar el mensaje de error
+  const navigate = useNavigate();
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -17,9 +19,9 @@ function Login() {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault(); // Previene la recarga de la página por defecto
+    event.preventDefault();
 
-    fetch('/ruta/', {
+    fetch('http://localhost:8080/user/post/login', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
       headers: {
@@ -28,9 +30,13 @@ function Login() {
     })
     .then(response => response.json())
     .then(data => {
-      // ARecibir la validación para mover a página /home
+      if (data.success) {
+        navigate('/home');
+      } else {
+        setShowError(true); // Mostrar el mensaje de error si success es false
+      }
     })
-    .catch(error => {
+    .catch(() => {
       console.log("Error con la solicitud")
     });
   };
@@ -44,14 +50,15 @@ function Login() {
                   <form onSubmit={handleSubmit}>
                     <div className="email-section input-style">
                       <div><label htmlFor="email">Correo electrónico:</label></div>
-                      <input type="email" id="email" name="email" value={email} onChange={handleEmailChange} required></input> {/* Agrega value y onChange */}
+                      <input type="email" id="email" name="email" value={email} onChange={handleEmailChange} required></input>
                     </div>
                     <div className="pass-section input-style">
                       <div><label htmlFor="password">Contraseña:</label></div>
-                      <input type="password" id="password" name="password" value={password} onChange={handlePasswordChange} required></input> {/* Agrega value y onChange */}
+                      <input type="password" id="password" name="password" value={password} onChange={handlePasswordChange} required></input>
                     </div>
                     <div className="btn-login"><button type="submit" className="login-button">Iniciar sesión</button></div>
                   </form>
+                  {showError && <div className='error'><h2>Datos incorrectos. Por favor, inténtalo de nuevo.</h2></div>}
                 </div>
             </Modal>
         </div>

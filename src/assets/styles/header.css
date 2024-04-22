@@ -1,4 +1,8 @@
 .header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     background-color: #ffcc00;
     text-align: center;
@@ -7,6 +11,7 @@
 }
 
 .header h1 {
+    text-align: center;
     margin: 0;
     color: black;
     font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;

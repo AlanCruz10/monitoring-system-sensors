@@ -14,8 +14,8 @@ function Home (){
 
     const [temperatureDht11, setTemperatureDht11] = useState(0);
     const [humidityDht11, setHumidityDht11Dht11] = useState(0);
-    const [temperaureDs18b20, setTemperaureDs18b20] = useState(35.44);
-    const tempDs18b20Min = 10
+    const [temperaureDs18b20, setTemperaureDs18b20] = useState(0);
+    const tempDs18b20Min = 20
     const tempDs18b20Max = 30
 
     useEffect(() => {

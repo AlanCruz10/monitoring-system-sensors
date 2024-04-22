@@ -37,6 +37,11 @@ button {
     background-color: black;
 }
 
+.logout-button {
+    position: absolute;
+    right: 20px;
+}
+
 @media only screen and (max-width: 600px) {
     button {
         font-size: 1.6vh;
