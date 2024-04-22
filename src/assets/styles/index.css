@@ -38,3 +38,21 @@
     margin-top: 0;
     padding: 10px 0px;
 }
+
+.index-header-modal {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.index-header-modal img {
+    position: absolute;
+    width: 10%;
+    left: 11.5%;
+}
+
+.index-header-modal h2 {
+    text-align: center;
+}

@@ -8,6 +8,7 @@ import "../assets/styles/history.css"
 import SwitcherGraphic from '../components/switcherGraphic';
 import Context from '../context/context';
 import Chart from '../components/graphicData';
+import Index from '../components';
 
 function History () {
     const [showPanel, setShowPanel] = useState(false);
@@ -231,6 +232,7 @@ function History () {
                     </div>
                 </Modal>
             </div>
+            <Index />
         </div>
     );
 }

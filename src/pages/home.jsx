@@ -7,6 +7,7 @@ import Header from "../layouts/header"
 import NavBar from "../components/navBar";
 import Modal from "../containers/modal"
 import Card from "../components/card";
+import Index from "../components";
 import "../assets/styles/home.css"
 
 
@@ -91,6 +92,7 @@ function Home (){
                     </div>
                 </Modal>
             </div>
+            <Index />
         </div>
     );
 }

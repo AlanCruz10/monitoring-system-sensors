@@ -18,9 +18,9 @@ function Index() {
                     width: isExpanded ? '70%' : '50px',
                     height: isExpanded ? '90%' : '50px',
                     backgroundColor: isExpanded ? 'white' : '#FFCC00',
-                    border: isExpanded ? '1px solid black' : 'none',
+                    border: '1px solid black',
                     borderRadius: isExpanded ? '18px' : '50%',
-                    color: isExpanded ? 'black':'white',
+                    color: 'black',
                     display: isExpanded ? '' : 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -33,7 +33,10 @@ function Index() {
                 {isExpanded ? (
                     <div className="info-modal">
                         <div className="modal-header"><center><h1>RESONANCIA MAGNETICA</h1></center></div>
-                        <center><h2>Sistema de monitoreo</h2></center>
+                        <div className="index-header-modal">
+                            <img src="logo-sanatorio.jpg" alt="" />
+                            <h2>Sistema de monitoreo</h2>
+                        </div>
                         <div className="content">
                             <div className="left-section">
                                 <img src="chiller.jpg" alt="Left Image" />
