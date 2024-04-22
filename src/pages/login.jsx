@@ -28,7 +28,7 @@ function Login() {
     })
     .then(response => response.json())
     .then(data => {
-      // ARecibir la validación y validar para mover a página /home
+      // ARecibir la validación para mover a página /home
     })
     .catch(error => {
       console.log("Error con la solicitud")

@@ -32,7 +32,7 @@ function Index() {
             >
                 {isExpanded ? (
                     <div className="info-modal">
-                        <center><h1>RESONANCIA MAGNETICA</h1></center>
+                        <div className="modal-header"><center><h1>RESONANCIA MAGNETICA</h1></center></div>
                         <center><h2>Sistema de monitoreo</h2></center>
                         <div className="content">
                             <div className="left-section">
