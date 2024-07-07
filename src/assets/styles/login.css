@@ -52,7 +52,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 5%;
+    padding: 10% 5%;
+}
+
+.btn-login button {
+    width: 70%;
+    height: 5vh;
+    font-size: large;
 }
 
 .error {

@@ -77,13 +77,13 @@ function Home (){
                         <Card 
                             enable={true} 
                             state={true} 
-                            sensor_name={"DS18B20"} 
+                            sensor_name={"CHILLER"} 
                             sensor_value={sensors[2].number + "°C"} 
                             sensor_description={"Medidor de temperatura en liquidos"}/>
                         <Card 
                             enable={true}
                             state={false} 
-                            sensor_name="DHT11"
+                            sensor_name="SALA"
                             sensor1_value={sensors[1].number + "°C"}
                             sensor1_description="Sensor de temperatura"
                             sensor2_value={sensors[0].number + "%HR"}
