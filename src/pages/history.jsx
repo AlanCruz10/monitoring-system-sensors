@@ -43,7 +43,7 @@ function History () {
     }, [selectedOption]);
 
     const getDate = useCallback((date) => {
-        fetch(`http://localhost:8080/data/get/history/v1?sensor=${selectedOption}&date=${date}`,{
+        fetch(`http://34.238.108.47:8080/data/get/history/v1?sensor=${selectedOption}&date=${date}`,{
             method: "GET",
             mode: "cors",
             redirect: 'follow',

@@ -3,14 +3,25 @@ import { getDatabase } from "firebase/database";
 
 export function getData () {
 
+  const apiKey = import.meta.env.VITE_FIREBASE_API_KEY
+  const authDomain = import.meta.env.VITE_FIREBASE_AUTH_DOMAIN
+  const databaseURL = import.meta.env.VITE_FIREBASE_DATABASE_URL
+  const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID
+  const storageBucket = import.meta.env.VITE_FIREBASE_STORAGE_BUCKET
+  const messagingSenderId = import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID
+  const apiId = import.meta.env.VITE_FIREBASE_API_ID
+  const measurementId = import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
+
+
   const firebaseConfig = {
-    apiKey: "AIzaSyCHzba5ltJuwEmMgwtw31cS0K5mX7nut-o",
-    authDomain: "monitoring-system-87637.firebaseapp.com",
-    projectId: "monitoring-system-87637",
-    storageBucket: "monitoring-system-87637.appspot.com",
-    messagingSenderId: "333822390815",
-    appId: "1:333822390815:web:007db585f107d09e149b2a",
-    measurementId: "G-BTXD7M76SR"
+    apiKey: apiKey,
+    authDomain: authDomain,
+    databaseURL: databaseURL,
+    projectId: projectId,
+    storageBucket: storageBucket,
+    messagingSenderId: messagingSenderId,
+    appId: apiId,
+    measurementId: measurementId
   };
 
   const app = initializeApp(firebaseConfig);
