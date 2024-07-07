@@ -22,8 +22,9 @@ function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    fetch('http://34.238.108.47:8080/user/v1/login', {
+    const HOST = import.meta.env.VITE_HOST
+    const PORT = import.meta.env.VITE_PORT
+    fetch(`http://${HOST}:${PORT}/user/v1/login`, {
       method: 'POST',
       body: JSON.stringify({ email, password }),
       headers: {
